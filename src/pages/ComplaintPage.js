@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+
 
 function ComplaintPage() {
 
@@ -119,6 +119,7 @@ function ComplaintPage() {
           Smart Traffic Complaint System
         </h2>
 
+        
         <SidebarItem
           text="Dashboard"
           onClick={() => navigate("/dashboard")}

@@ -9,11 +9,15 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ComplaintPage from "./pages/ComplaintPage";
 import MyComplaints from "./pages/MyComplaints";
+import Header from "./components/Header";
 
 
 function App() {
   return (
+   
+      
     <BrowserRouter>
+    <Header />
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
@@ -25,6 +29,7 @@ function App() {
         <Route path="/my-complaints" element={<MyComplaints />} />
       </Routes>
     </BrowserRouter>
+    
   );
 }
 
