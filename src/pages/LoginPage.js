@@ -20,38 +20,43 @@ function LoginPage() {
     });
   };
 
-  // LOGIN
   const handleLogin = async () => {
 
-    try {
+  try {
 
-      const response = await axios.post(
-        "http://localhost:8081/api/auth/login",
-        loginData
-      );
+    const response = await axios.post(
+      "http://localhost:8081/api/auth/login",
+      loginData
+    );
 
-      if(response.data === "LOGIN_SUCCESS") {
+    const result = response.data;
 
-        alert("Login Successful");
+    if (result === "LOGIN_SUCCESS") {
 
-        navigate("/complaint");
+      // ⚠️ since backend does NOT send user data,
+      // we store email manually
+      localStorage.setItem("email", loginData.email);
 
-      } else if(response.data === "USER_NOT_FOUND") {
+      alert("Login Successful");
 
-        alert("User not found. Please register first.");
+      navigate("/complaint");
 
-      } else if(response.data === "INVALID_PASSWORD") {
-
-        alert("Invalid Password");
-      }
-
-    } catch(error) {
-
-      console.error(error);
-
-      alert("Login Failed");
+    } 
+    else if (result === "USER_NOT_FOUND") {
+      alert("User not found. Please register first.");
+    } 
+    else if (result === "INVALID_PASSWORD") {
+      alert("Invalid Password");
+    } 
+    else {
+      alert("Unexpected response: " + result);
     }
-  };
+
+  } catch (error) {
+    console.error(error);
+    alert("Login Failed");
+  }
+};
 
   return (
     <div

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 function ComplaintPage() {
 
@@ -62,6 +63,7 @@ function ComplaintPage() {
         location: complaint.location,
         photoUrl: complaint.photo,
         videoUrl: complaint.video,
+        email: localStorage.getItem("email")
       };
 
       await axios.post(
@@ -73,15 +75,15 @@ function ComplaintPage() {
 
       fetchComplaints();
 
-      // CLEAR FORM
-      setComplaint({
-        complaintType: "",
-        description: "",
-        vehicleNumber: "",
-        location: "",
-        photo: "",
-        video: "",
-      });
+      // // CLEAR FORM
+      // setComplaint({
+      //   complaintType: "",
+      //   description: "",
+      //   vehicleNumber: "",
+      //   location: "",
+      //   photo: "",
+      //   video: "",
+      // });
 
     } catch (error) {
 
@@ -92,6 +94,8 @@ function ComplaintPage() {
   };
 
   return (
+
+    
     <div
       style={{
         display: "flex",
