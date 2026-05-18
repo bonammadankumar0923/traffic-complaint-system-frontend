@@ -10,6 +10,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ComplaintPage from "./pages/ComplaintPage";
 import MyComplaints from "./pages/MyComplaints";
 import Header from "./components/Header";
+import SearchVehicle from "./pages/SearchVehicle";
+import DashboardPage from "./pages/DashboardPage.js"
 
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
    
       
     <BrowserRouter>
-    <Header />
+    
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
@@ -27,6 +29,9 @@ function App() {
         />
         <Route path="/complaint" element={<ComplaintPage />} />
         <Route path="/my-complaints" element={<MyComplaints />} />
+        <Route path="/search-vehicle" element={<SearchVehicle />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        
       </Routes>
     </BrowserRouter>
     

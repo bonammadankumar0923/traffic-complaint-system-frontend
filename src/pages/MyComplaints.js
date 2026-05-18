@@ -13,7 +13,7 @@ function MyComplaints() {
 
   const fetchMyComplaints = async () => {
     try {
-      const res = await axios.get(`${API}/my/${email}`);
+      const res = await axios.get(`${API}/user/${email}`);
       setComplaints(res.data || []);
     } catch (err) {
       console.error("Error fetching complaints:", err);
@@ -59,48 +59,98 @@ function MyComplaints() {
             </tr>
           </thead>
 
-          <tbody>
-            {complaints.length === 0 ? (
-              <tr>
-                <td colSpan="6" style={styles.empty}>
-                  No complaints found
-                </td>
-              </tr>
-            ) : (
-              complaints.map((c) => (
-                <tr key={c.id} style={styles.row}>
+<tbody>
 
-                  <td style={styles.cell}>{c.id}</td>
-                  <td style={styles.cell}>{c.vehicleNumber}</td>
-                  <td style={styles.cell}>{c.status}</td>
-                  <td style={styles.cell}>{c.location}</td>
+  {complaints.length === 0 ? (
 
-                  <td style={styles.cell}>
-                    {c.photoUrl ? (
-                      <img
-                        src={c.photoUrl}
-                        alt="photo"
-                        style={styles.img}
-                      />
-                    ) : (
-                      "No Photo"
-                    )}
-                  </td>
+    <tr>
 
-                  <td style={styles.cell}>
-                    {c.videoUrl ? (
-                      <video width="120" controls style={{ borderRadius: "8px" }}>
-                        <source src={c.videoUrl} />
-                      </video>
-                    ) : (
-                      "No Video"
-                    )}
-                  </td>
+      <td
+        colSpan="6"
+        style={styles.empty}
+      >
+        No complaints found
+      </td>
 
-                </tr>
-              ))
-            )}
-          </tbody>
+    </tr>
+
+  ) : (
+
+    complaints.map((c, index) => (
+
+      <tr key={c.id}>
+
+        {/* SERIAL NUMBER */}
+        <td style={styles.cell}>
+          {index + 1}
+        </td>
+
+        {/* VEHICLE */}
+        <td style={styles.cell}>
+          {c.vehicleNumber}
+        </td>
+
+        {/* STATUS */}
+        <td style={styles.cell}>
+          {c.status}
+        </td>
+
+        {/* LOCATION */}
+        <td style={styles.cell}>
+          {c.location}
+        </td>
+
+        {/* PHOTO */}
+        <td style={styles.cell}>
+
+          {c.photoUrl ? (
+
+            <img
+              src={c.photoUrl}
+              alt="photo"
+              style={styles.img}
+            />
+
+          ) : (
+
+            "No Photo"
+          )}
+
+        </td>
+
+        {/* VIDEO */}
+        <td style={styles.cell}>
+
+          {c.videoUrl ? (
+
+            <video
+              width="120"
+              controls
+              style={{
+                borderRadius: "8px"
+              }}
+            >
+
+              <source
+                src={c.videoUrl}
+              />
+
+            </video>
+
+          ) : (
+
+            "No Video"
+          )}
+
+        </td>
+
+      </tr>
+
+    ))
+
+  )}
+
+</tbody>
 
         </table>
 

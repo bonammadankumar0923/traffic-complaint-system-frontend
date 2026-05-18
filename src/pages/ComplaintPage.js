@@ -28,21 +28,35 @@ function ComplaintPage() {
   };
 
   // FETCH COMPLAINTS
-  const fetchComplaints = async () => {
+const fetchComplaints = async () => {
 
-    try {
+  try {
 
-      const response = await axios.get(
-        "http://localhost:8081/api/complaints"
+    const email =
+      localStorage.getItem("email");
+
+    console.log(
+  "LOCAL STORAGE EMAIL:",
+  localStorage.getItem("email")
+);
+
+    const response =
+      await axios.get(
+        `http://localhost:8081/api/complaints/user/${email}`
       );
 
-      setComplaints(response.data);
+    console.log(
+      "FILTERED DATA:",
+      response.data
+    );
 
-    } catch (error) {
+    setComplaints(response.data);
 
-      console.error(error);
-    }
-  };
+  } catch (error) {
+
+    console.error(error);
+  }
+};
 
   // PAGE LOAD
   useEffect(() => {
@@ -463,74 +477,80 @@ function ComplaintPage() {
               </tr>
             </thead>
 
-            <tbody>
+<tbody>
 
-              {complaints.map((item) => (
+  {complaints.map((item, index) => (
 
-                <tr key={item.id}>
+    <tr key={item.id}>
 
-                  <td style={tableCell}>
-                    {item.id}
-                  </td>
+      {/* USER-WISE COMPLAINT COUNT */}
+      <td style={tableCell}>
+        {index + 1}
+      </td>
 
-                  <td style={tableCell}>
-                    {item.vehicleNumber}
-                  </td>
+      {/* VEHICLE NUMBER */}
+      <td style={tableCell}>
+        {item.vehicleNumber}
+      </td>
 
-                  <td style={tableCell}>
-                    {item.status || "IN_PROGRESS"}
-                  </td>
+      {/* STATUS */}
+      <td style={tableCell}>
+        {item.status || "IN_PROGRESS"}
+      </td>
 
-                  <td style={tableCell}>
-                    {item.location}
-                  </td>
+      {/* LOCATION */}
+      <td style={tableCell}>
+        {item.location}
+      </td>
 
-                  {/* PHOTO */}
-                  <td style={tableCell}>
+      {/* PHOTO */}
+      <td style={tableCell}>
 
-                    {item.photoUrl ? (
+        {item.photoUrl ? (
 
-                      <img
-                        src={item.photoUrl}
-                        alt="complaint"
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          objectFit: "cover",
-                          borderRadius: "8px",
-                        }}
-                      />
+          <img
+            src={item.photoUrl}
+            alt="complaint"
+            style={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+              borderRadius: "8px",
+            }}
+          />
 
-                    ) : (
-                      "No Photos Uploaded"
-                    )}
+        ) : (
 
-                  </td>
+          "No Photos Uploaded"
+        )}
 
-                  {/* VIDEO */}
-                  <td style={tableCell}>
+      </td>
 
-                    {item.videoUrl ? (
+      {/* VIDEO */}
+      <td style={tableCell}>
 
-                      <video
-                        width="160"
-                        height="100"
-                        controls
-                      >
-                        <source src={item.videoUrl} />
-                      </video>
+        {item.videoUrl ? (
 
-                    ) : (
-                      "No Videos Uploaded"
-                    )}
+          <video
+            width="160"
+            height="100"
+            controls
+          >
+            <source src={item.videoUrl} />
+          </video>
 
-                  </td>
+        ) : (
 
-                </tr>
+          "No Videos Uploaded"
+        )}
 
-              ))}
+      </td>
 
-            </tbody>
+    </tr>
+
+  ))}
+
+</tbody>
 
           </table>
 
